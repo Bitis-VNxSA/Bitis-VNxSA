@@ -294,12 +294,129 @@ section {
     transform: scale(1.02);
 }
 
+.scroll-journey-container {
+    margin-top: 8rem;
+    text-align: center;
+    position: relative;
+}
+
+.section-title {
+    font-size: 2.5rem;
+    margin-bottom: 2rem;
+    font-weight: 900;
+}
+
+/* Stats Counter Styling */
+.stats-grid {
+    display: flex;
+    justify-content: center;
+    gap: 5rem;
+    margin-bottom: 4rem;
+}
+
+.stat-item {
+    text-align: center;
+}
+
+.stat-number {
+    font-size: 3.5rem;
+    font-weight: 900;
+    color: var(--primary-color);
+    line-height: 1;
+    margin-bottom: 0.5rem;
+}
+
+.stat-number span {
+    font-size: 1.5rem;
+    vertical-align: super;
+}
+
+.stat-label {
+    font-size: 0.9rem;
+    color: var(--text-muted);
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.journey-content-wrapper {
+    position: relative;
+    width: 100%;
+    min-height: 500px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Lac Bird in Why SA section */
+.sa-lac-bird {
+    position: absolute;
+    top: 50%;
+    left: -200px;
+    transform: translateY(-50%);
+    width: 200px;
+    z-index: 20;
+    pointer-events: none;
+    opacity: 0;
+}
+
+.sa-bird-img {
+    width: 100%;
+    height: auto;
+}
+
+.footprint-trail {
+    position: absolute;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    gap: 5%;
+    pointer-events: none;
+    z-index: 10;
+}
+
+.footprint {
+    width: 200px;
+    height: auto;
+    opacity: 0;
+}
+
+.fp-img {
+    width: 100%;
+    height: auto;
+    object-fit: contain;
+}
+
+
+.fp-left { transform: rotate(10deg); }
+.fp-right { transform: rotate(-10deg) translateY(40px); }
+
+
+.why-sa-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 3rem;
+    width: 100%;
+    opacity: 0;
+    transform: translateY(20px);
+    position: relative;
+    z-index: 5;
+}
+
 .sa-card {
     background: #fff;
     padding: 0;
     text-align: left;
-    transition: transform 0.3s;
+    transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.05);
 }
+
+.sa-card:hover {
+    transform: translateY(-10px);
+}
+
 
 .sa-card img {
     width: 100%;
