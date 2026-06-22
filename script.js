@@ -23,59 +23,72 @@ document.addEventListener('DOMContentLoaded', () => {
         birdObserver.observe(journeySection);
     }
 
-    // GSAP Footprint Journey Animation
-    gsap.registerPlugin(ScrollTrigger);
+    // GSAP Rhythm Journey Animation
+    const rhythmSection = document.querySelector('#rhythm.scroll-journey-container');
+    if (rhythmSection && typeof gsap !== 'undefined' && typeof ScrollTrigger !== 'undefined') {
+        gsap.registerPlugin(ScrollTrigger);
 
-    const fpTimeline = gsap.timeline({
-        scrollTrigger: {
-            trigger: ".scroll-journey-container",
-            start: "top 30%",
-            end: "bottom bottom",
-            toggleActions: "play none none none"
-        }
-    });
-
-    const wrapper = document.querySelector('.journey-content-wrapper');
-    const wrapperWidth = wrapper ? wrapper.offsetWidth : window.innerWidth;
-
-    fpTimeline
-        .to(".sa-lac-bird", {
-            opacity: 1,
-            left: "10%",
-            duration: 0.3,
-            ease: "power2.out"
+        const rhythmTimeline = gsap.timeline({
+            scrollTrigger: {
+                trigger: "#rhythm",
+                start: "top 65%",
+                end: "bottom bottom",
+                toggleActions: "play none none none"
+            }
         })
-        .to(".footprint", {
-            opacity: 1,
-            scale: 1,
-            duration: 0.3,
-            stagger: 0.2,
-            ease: "power2.out"
-        }, "-=0.1")
-        .to(".sa-lac-bird", {
-            left: "110%",
-            duration: 0.8,
-            ease: "power1.inOut"
-        }, "+=0.2")
-        .to(".sa-lac-bird", {
-            opacity: 0,
-            duration: 0.3,
-            ease: "power2.in"
-        }, "-=0.2")
-        .to(".footprint", {
-            opacity: 0,
-            y: -30,
-            scale: 1.02,
-            duration: 0.4,
-            stagger: 0.05,
-            ease: "power2.in"
-        }, "-=0.1")
-        .to(".why-sa-grid", {
-            opacity: 1,
-            y: 0,
-            duration: 0.6,
-            ease: "power3.out"
-        }, "-=0.2");
+            .set(".rhythm-container img", {
+                opacity: 0,
+                y: 20,
+                scale: 0.985
+            })
+            .set(".sa-lac-bird", {
+                opacity: 0,
+                left: "-200px"
+            })
+            .set(".footprint", {
+                opacity: 0,
+                y: 0,
+                scale: 1
+            })
+            .to(".sa-lac-bird", {
+                opacity: 1,
+                left: "8%",
+                duration: 0.9,
+                ease: "power2.out"
+            })
+            .to(".footprint", {
+                opacity: 1,
+                duration: 0.35,
+                ease: "power2.out"
+            }, "<")
+            // slow, steady glide all the way offscreen, then vanish
+            .to(".sa-lac-bird", {
+                left: "140%",
+                duration: 7,
+                ease: "linear"
+            })
+            // once fully offscreen, fade bird then immediately hide footprints and show rhythm image
+            .to(".sa-lac-bird", {
+                opacity: 0,
+                duration: 0.24,
+                ease: "power2.in"
+            })
+            // remove footprints instantly and reveal main rhythm image at the same time
+            .to(".footprint", {
+                opacity: 0,
+                duration: 0,
+                stagger: 0,
+                ease: "none"
+            }, "<")
+            .to(".rhythm-container img", {
+                opacity: 1,
+                y: 0,
+                scale: 1,
+                duration: 0.4,
+                ease: "power2.out"
+            }, "<")
+            ;
+    }
 
     // Stats Counter Animation
     const stats = document.querySelectorAll('.stat-number');
