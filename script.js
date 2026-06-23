@@ -23,71 +23,58 @@ document.addEventListener('DOMContentLoaded', () => {
         birdObserver.observe(journeySection);
     }
 
-    // GSAP Rhythm Journey Animation
-    const rhythmSection = document.querySelector('#rhythm.scroll-journey-container');
-    if (rhythmSection && typeof gsap !== 'undefined' && typeof ScrollTrigger !== 'undefined') {
-        gsap.registerPlugin(ScrollTrigger);
+    // GSAP Rhythm Journey Animation removed bird logic
+    const fusionGallery = document.querySelector('.fusion-gallery');
+    if (fusionGallery) {
+        gsap.set(fusionGallery, { opacity: 1, y: 0, scale: 1 });
+    }
 
-        const rhythmTimeline = gsap.timeline({
+    // GSAP Product Section Animation
+    const productSectionEl = document.querySelector('#product');
+    if (productSectionEl && typeof gsap !== 'undefined' && typeof ScrollTrigger !== 'undefined') {
+        gsap.timeline({
             scrollTrigger: {
-                trigger: "#rhythm",
-                start: "top 65%",
+                trigger: "#product",
+                start: "top 80%", // Trigger slightly later for better visibility
                 end: "bottom bottom",
                 toggleActions: "play none none none"
             }
         })
-            .set(".rhythm-container img", {
-                opacity: 0,
-                y: 20,
-                scale: 0.985
-            })
-            .set(".sa-lac-bird", {
-                opacity: 0,
-                left: "-200px"
-            })
-            .set(".footprint", {
-                opacity: 0,
-                y: 0,
-                scale: 1
-            })
-            .to(".sa-lac-bird", {
+            .set(".product-bird", { opacity: 0, left: "-200px" })
+            .set(".product-fp", { opacity: 0, y: 0, scale: 1 })
+            .set(".product-grid", { opacity: 0, y: 30 })
+            .to(".product-bird", {
                 opacity: 1,
                 left: "8%",
                 duration: 0.9,
                 ease: "power2.out"
             })
-            .to(".footprint", {
+            .to(".product-fp", {
                 opacity: 1,
                 duration: 0.35,
                 ease: "power2.out"
             }, "<")
-            // slow, steady glide all the way offscreen, then vanish
-            .to(".sa-lac-bird", {
+            .to(".product-bird", {
                 left: "140%",
                 duration: 7,
                 ease: "linear"
             })
-            // once fully offscreen, fade bird then immediately hide footprints and show rhythm image
-            .to(".sa-lac-bird", {
+            .to(".product-bird", {
                 opacity: 0,
                 duration: 0.24,
                 ease: "power2.in"
             })
-            // remove footprints instantly and reveal main rhythm image at the same time
-            .to(".footprint", {
+            .to(".product-fp", {
                 opacity: 0,
-                duration: 0,
-                stagger: 0,
-                ease: "none"
-            }, "<")
-            .to(".rhythm-container img", {
-                opacity: 1,
-                y: 0,
-                scale: 1,
-                duration: 0.4,
+                duration: 0.3,
                 ease: "power2.out"
             }, "<")
-            ;
+            .to(".product-grid", {
+                opacity: 1,
+                y: 0,
+                duration: 0.6,
+                ease: "power2.out"
+            }, "<");
     }
 
     // Stats Counter Animation
@@ -136,7 +123,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }, observerOptions);
 
-    document.querySelectorAll('.card, .product-card, .connection-item, section h2').forEach(el => {
+    document.querySelectorAll('.card, .connection-item, section h2').forEach(el => {
         el.style.opacity = '0';
         el.style.transform = 'translateY(30px)';
         el.style.transition = 'all 0.8s ease-out';
@@ -243,6 +230,21 @@ document.addEventListener('DOMContentLoaded', () => {
         // Update tagline
         const tagline = document.querySelector('.tagline');
         if (tagline) tagline.innerHTML = translations[lang].tagline;
+
+        // Apply Vietnamese Font style matching "Hạnh Phúc"
+        const journeyH1 = document.querySelector('.journey-section h1');
+        const cardTitles = document.querySelectorAll('.card-title');
+        const nodes = document.querySelectorAll('.node');
+        
+        if (lang === 'vi') {
+            if (journeyH1) journeyH1.classList.add('vi-font');
+            cardTitles.forEach(t => t.classList.add('vi-font'));
+            nodes.forEach(n => n.classList.add('vi-font'));
+        } else {
+            if (journeyH1) journeyH1.classList.remove('vi-font');
+            cardTitles.forEach(t => t.classList.remove('vi-font'));
+            nodes.forEach(n => n.classList.remove('vi-font'));
+        }
     }
 
     // Attach event listener to EN|VI link
@@ -274,11 +276,11 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
     // Modal Logic
-    const productLinks = document.querySelectorAll('.product-link');
+    const modalTriggers = document.querySelectorAll('.product-link, .card[data-modal]');
     const closeButtons = document.querySelectorAll('[data-close]');
     const allModals = document.querySelectorAll('.modal-overlay');
 
-    productLinks.forEach(link => {
+    modalTriggers.forEach(link => {
         link.addEventListener('click', (e) => {
             e.preventDefault();
             const modalId = link.getAttribute('data-modal');
