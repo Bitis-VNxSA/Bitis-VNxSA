@@ -380,12 +380,11 @@ section {
 
 .product-trail {
     z-index: 50;
-    top: 50%;
-    transform: translateY(-50%);
+    top: 30%; /* Position footprints where the shoes will be vertical-center */
 }
 
 .product-fp {
-    width: 150px;
+    /* Base width handled in .footprint */
 }
 
 /* On Mobile */
@@ -487,16 +486,17 @@ section {
 .footprint-trail {
     position: absolute;
     width: 100%;
-    display: flex;
-    justify-content: center;
-    gap: 5%;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 3rem;
     pointer-events: none;
     z-index: 10;
 }
 
 .footprint {
-    width: 200px;
-    height: auto;
+    width: 100%;
+    display: flex;
+    justify-content: center;
     opacity: 0;
 }
 
@@ -577,6 +577,8 @@ section {
     grid-template-columns: repeat(3, 1fr);
     gap: 3rem;
     margin-top: 4rem;
+    position: relative;
+    width: 100%;
 }
 
 .product-card {
@@ -1681,14 +1683,20 @@ section {
     max-height: 400px;
     overflow-y: auto;
     padding-right: 20px;
-    font-size: 0.95rem;
-    line-height: 1.7;
-    color: #444;
-    text-align: justify;
+    font-size: 0.98rem;
+    line-height: 1.85;
+    color: #2d2d2d;
+    text-align: left;
+    letter-spacing: 0.01em;
+    word-break: break-word;
+}
+
+.modal-descriptionScroll p {
+    margin-bottom: 1.25rem;
 }
 
 .modal-descriptionScroll::-webkit-scrollbar {
-    width: 4px;
+    width: 6px;
 }
 
 .modal-descriptionScroll::-webkit-scrollbar-track {
