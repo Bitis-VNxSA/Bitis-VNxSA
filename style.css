@@ -48,7 +48,7 @@ nav {
     display: flex;
     justify-content: flex-end;
     align-items: center;
-    padding: 0.5rem 10% 1rem; /* Slightly reduced top padding to move it up */
+    padding: 0.2rem 10% 0.6rem; /* Reduced top and bottom padding to move it up */
     background: transparent;
     z-index: 1000;
     transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
@@ -126,16 +126,16 @@ section {
     position: relative;
     padding: 0;
     width: 100%;
-    height: auto;
-    min-height: 100vh;
+    height: 100vh;
+    height: 100dvh; /* Dynamic viewport height for mobile */
     overflow: hidden;
-    display: block;
     background: var(--bg-color);
 }
 
 .hero-full-img {
     width: 100%;
-    height: auto;
+    height: 100%;
+    object-fit: cover;
     display: block;
 }
 
